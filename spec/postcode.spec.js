@@ -6,7 +6,7 @@ var expect   = require('chai').expect,
 
 describe('Postcode', function() {
 
-    it('is instantiated with a string representing a post code', function() {
+    xit('is instantiated with a string representing a post code', function() {
         // prepare
 
         // expect

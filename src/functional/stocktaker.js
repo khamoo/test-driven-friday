@@ -16,8 +16,21 @@
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce
 
  */
-
 'use strict';
+var _ = require('lodash');
+
 module.exports = function(inventory) {
-    // return ...
+    // Solution #1
+    /*var result = {};
+    for(var i=0; i<inventory.length; i++){
+        if(typeof(result[inventory[i]]) != 'undefined'){
+            result[inventory[i]]++;
+        }else{
+            result[inventory[i]] = 1;
+        }
+    }
+    return result;*/
+
+    // Solution #2
+    return  _.countBy(inventory, function(text) { return text; } );
 };

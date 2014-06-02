@@ -36,4 +36,18 @@
 'use strict';
 module.exports = function onlyShort(messages) {
     // return ...
+    //var retVal = [];
+ /**   for(var i=0; i<messages.length; i++) {
+        if(messages[i].message.length < 50)
+          retVal.push(messages[i].message);
+    }
+    return retVal;
+ **/
+    return messages
+        .filter(function(text){
+            return text.message.length <50;
+        })
+        .map(function(str){
+            return str.message;
+        });
 };

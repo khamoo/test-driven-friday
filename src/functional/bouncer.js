@@ -25,7 +25,56 @@
 
 'use strict';
 module.exports = function bouncer(guestList) {
+   // var shouldBeLetIn = bouncer(guestList);
+
+   // expect(shouldBeLetIn(guests)).to.be.false;
     return function(guests) {
         // return ...
+        // Solution #1
+        /*for (var i =0; i<guests.length; i++) {
+            var found = false;
+            for (var j=0; j<guestList.length; j++){
+                if (guestList[j].id == guests[i].id) {
+                    found = true;
+                    break;
+                }
+            }
+            if (!found)
+              return false;
+
+        }
+        return true;
+        */
+
+        // Solution #2
+        /*
+        var ids = guestList.map(function(g) {
+            return g.id;
+        });
+
+        return guests.map(function(guest){
+            // can we return now ?
+            return ids.indexOf(guest.id)!=-1;
+        }).reduce(function(a,b) {
+            return a&&b;
+        })
+        */
+        // Solution #3
+/*
+        var ids = guestList.map(function(g) {
+            return g.id;
+        });
+
+        return guests.every(function(element, index, array){
+            return ids.indexOf(element.id)!=-1;
+        });
+        */
+
+        // Solution #4
+         return guests.every(function(element, index, array){
+            return guestList.some(function(valid,index,array){
+                 return element.id === valid.id;
+             });
+         });
     };
 };

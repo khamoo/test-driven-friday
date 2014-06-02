@@ -28,5 +28,16 @@
 
 'use strict';
 module.exports = function repeat(operation, num) {
-    // ...
+    // RECURSIVE WAY
+    if(num === 0) return;
+    operation();
+    repeat(operation, num-1);
+
+    //IMPERATIVE WAY
+//    for(var i=0; i<num; i++){
+//        operation();
+//    }
+
+//    LAZY WAY
+//   _.range(num).forEach(operation)
 };

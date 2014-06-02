@@ -12,6 +12,7 @@
 
     },
     "devDependencies": {
+        "lodash":               "*",
         "chai":                 "1.9.0",
         "grunt":                "0.4.2",
         "grunt-cli":            "0.1.13",

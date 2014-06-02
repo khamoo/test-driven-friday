@@ -18,16 +18,17 @@ chai.use(sinonChai);
 
 describe('Functional Programming', function() {
 
-    describe.skip('uppercase', function() {
+    describe('uppercase', function() {
 
         it('returns an upper-case version of the string provided', function() {
+
             expect(uppercase('hello world')).to.equal('HELLO WORLD');
         });
     });
 
     describe('Higher-order functions', function() {
 
-        describe.skip('repeat', function() {
+        describe('repeat', function() {
 
             it('calls a given function "n" times', function() {
                 var operation = sinon.spy();
@@ -43,7 +44,7 @@ describe('Functional Programming', function() {
 
         describe('Array#map', function() {
 
-            describe.skip('doubleAll', function() {
+            describe('doubleAll', function() {
 
                 it('doubles the value of each element of the input array', function() {
                     var numbers        = [ 0, 1, 2, 3, 4,  9,  8,  7,  6,  5 ],
@@ -56,7 +57,7 @@ describe('Functional Programming', function() {
 
         describe('Array#filter', function() {
 
-            describe.skip('onlyShort', function() {
+            describe('onlyShort', function() {
                 // generates an object { message: body } where body has no more characters than maxCharacters
                 function message(maxCharacters) { return { message: loremIpsum({ units: 'words', count: Math.floor(maxCharacters / 2) }).substr(0, maxCharacters) }; }
 
@@ -82,7 +83,7 @@ describe('Functional Programming', function() {
 
         describe('Array#every Array#some', function() {
 
-            describe.skip('bouncer', function() {
+            describe('bouncer', function() {
 
                 it('lets a group of guests in if all the guests are on the guestList', function() {
                     var guestList = [
@@ -123,7 +124,7 @@ describe('Functional Programming', function() {
 
         describe('Array#reduce', function() {
 
-            describe.skip('stocktaker', function() {
+            describe('stocktaker', function() {
 
                 it('calculates quantities of fruits', function() {
                     var fruits = [ 'apple', 'banana', 'orange', 'orange', 'orange', 'banana' ];
@@ -143,7 +144,11 @@ describe('Functional Programming', function() {
                     return previous + current;
                 }
 
-                describe.skip('implements Array#reduce using recursion', function() {
+                describe('implements Array#reduce using recursion', function() {
+
+                    it('performs reduction of an array with zero element', function() {
+                        expect(reduce([ ], summarise, 0)).to.equal(0);
+                    });
 
                     it('performs reduction of an array with one element', function() {
                         expect(reduce([ 1 ], summarise, 0)).to.equal(1);
@@ -151,6 +156,10 @@ describe('Functional Programming', function() {
 
                     it('performs reduction of an array with multiple elements', function() {
                         expect(reduce([ 1, 2, 3 ], summarise, 0)).to.equal(6);
+                    });
+
+                    it('performs reduction of an array with multiple elements and initial value 100', function() {
+                        expect(reduce([ 1, 2, 3 ], summarise, 100)).to.equal(106);
                     });
 
                     it('calls the callback function with `previous`, `current`, `index` and `array` parameters', function() {
@@ -167,6 +176,31 @@ describe('Functional Programming', function() {
                             previous, current, index, list
                         );
                     });
+
+//                    it('calls the callback function with `previous`, `current`, `index` and `array` parameters', function() {
+//                        var callback = sinon.spy(),
+//                            previous = 0,
+//                            current  = 1,
+//                            index    = 0,
+//                            list     = [ 1, 2, 3 ],
+//                            initial  = 0;
+//
+//                        reduce(list, callback, initial);
+//
+//                        expect(callback).to.have.been.calledWith(
+//                            0, 1, 0, [1, 2, 3]
+//                        );
+//
+//                        expect(callback).to.have.been.calledWith(
+//                            undefined, 2, 0, [2, 3]
+//                        );
+//
+//                        expect(callback).to.have.been.calledWith(
+//                            undefined, 3, 0, [3]
+//                        );
+//
+//                        expect(callback.to.have.been.calledThrice).to.have.been.equals(3);
+//                    });
                 });
             });
         });

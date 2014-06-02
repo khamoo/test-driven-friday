@@ -15,11 +15,15 @@
 
 'use strict';
 module.exports = function doubleAll(numbers) {
-    var result = [];
 
+    return numbers.map(function(v) {return v*2;});
+
+/*
+ var result = [];
     for (var i = 0; i < numbers.length; i++) {
         result.push(numbers[i] * 2);
     }
 
     return result;
+    */
 };

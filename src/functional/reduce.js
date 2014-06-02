@@ -33,4 +33,14 @@
 'use strict';
 module.exports = function reduce(list, fn, initial) {
     // return ...
+    if (list.length == 0) {
+        return 0;
+    } else if (list.length == 1) {
+        return fn(initial, list[0], 0, list);
+    } else {
+        return reduce(list.slice(1), fn, fn(initial, list[0], 0, list));
+    }
+    //#1 - [2, 3], fn, fn(0, 1, 0, [1, 2, ])
+    //#2 - [3], fn, fn(1, 2, 0, [2, 3])
+    //#3 = [], fn, fn(3, 3, 0 [3])
 };
