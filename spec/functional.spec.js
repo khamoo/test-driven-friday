@@ -12,16 +12,31 @@ var chai       = require('chai'),
     onlyShort   = require('../src/functional/only_short'),
     bouncer     = require('../src/functional/bouncer'),
     stocktaker  = require('../src/functional/stocktaker'),
-    reduce      = require('../src/functional/reduce');
+    reduce      = require('../src/functional/reduce'),
+    duckCount   = require('../src/functional/duck_count');
 
 chai.use(sinonChai);
+
+/*
+    Functional programming is based on a simple premise with far-fetching implications:
+    - we construct our programs using only Pure Functions
+    In other words, functions that have no side effects.
+
+    Functional programming is a restriction on how we write programs,
+    but not on what programs we can write.
+
+    It turns out that accepting this restriction is tremendously beneficial
+    because of the increase in modularity that we gain from programming with pure functions.
+    Because of this modularity, pure functions are easier to test, to reuse, to parallelise,
+    to generalise and to reason about.
+ */
 
 describe('Functional Programming', function() {
 
     describe('uppercase', function() {
 
         it('returns an upper-case version of the string provided', function() {
-
+            // pure function, no side effects
             expect(uppercase('hello world')).to.equal('HELLO WORLD');
         });
     });
@@ -29,6 +44,19 @@ describe('Functional Programming', function() {
     describe('Higher-order functions', function() {
 
         describe('repeat', function() {
+
+            /*
+                Iteration (looping) in functional languages is usually accomplished via recursion.
+                Recursive functions invoke themselves, allowing an operation to be performed over
+                and over until the base case is reached.
+
+                Though some recursion requires maintaining a stack,
+                tail recursion can be recognised
+                and optimised by a compiler into the same code used to implement iteration in imperative
+                languages
+
+                http://stackoverflow.com/questions/33923/what-is-tail-recursion
+             */
 
             it('calls a given function "n" times', function() {
                 var operation = sinon.spy();
@@ -140,7 +168,7 @@ describe('Functional Programming', function() {
             });
 
             describe('reduce', function() {
-                function summarise(previous, current, index, array) {
+                function summarise(previous, current, index, array) { // jshint unused:false
                     return previous + current;
                 }
 
@@ -202,6 +230,151 @@ describe('Functional Programming', function() {
 //                        expect(callback.to.have.been.calledThrice).to.have.been.equals(3);
 //                    });
                 });
+            });
+        });
+    });
+
+    describe('"Borrowing" functionality', function() {
+
+        describe.skip('call', function() {
+            function duck() {
+                return { quack: true };
+            }
+
+            function duckWithNoPrototype() {
+                var duck = Object.create(null);
+                duck.quack = true;
+
+                return duck;
+            }
+
+            function duckImpostor() {
+                var prototype = duck();
+
+                return Object.create(prototype);
+            }
+
+            function notADuck() {
+                return Object.create(null);
+            }
+
+            it('returns 0 if there are no ducks to count', function() {
+                expect(duckCount()).to.equal(0);
+            });
+
+            it('counts real ducks', function() {
+                expect(duckCount(duck())).to.equal(1);
+            });
+
+            it('counts real ducks, even if they have no prototype', function() {
+                expect(duckCount(duckWithNoPrototype())).to.equal(1);
+            });
+
+            it('ignores a duck impostor', function() {
+                expect(duckCount(duckImpostor())).to.equal(0);
+            });
+
+            it('ignores objects that are not ducks', function() {
+                expect(duckCount(notADuck())).to.equal(0);
+            });
+
+            it('counts multiple ducks', function() {
+                expect(duckCount(duck(), duckWithNoPrototype())).to.equal(2);
+                expect(duckCount(duck(), duck(), duckWithNoPrototype())).to.equal(3);
+            });
+
+            it('counts ignores anything that is not a "real" duck', function() {
+                expect(duckCount(
+                    duck(),
+                    duckImpostor(),
+                    notADuck(),
+                    duckImpostor(),
+                    duck()
+                )).to.equal(2);
+            });
+        });
+
+        describe.skip('Partial application without Function::bind', function() {
+            var log = require('../src/functional/log_without_bind'),
+                consoleLog;
+
+            beforeEach(function() {
+                consoleLog = sinon.spy(console, 'log');
+            });
+
+            afterEach(function() {
+                console.log.restore();
+            });
+
+            it('does not use Function#bind', function() {
+                var bind = sinon.spy(console.log, 'bind'),
+
+                    info = log('INFO:');
+
+                info();
+
+                expect(bind).to.not.have.been.called;
+            });
+
+            it('"outputs" an info log, prepending any arguments with a namespace', function() {
+                var info = log('INFO:');
+
+                info('an info message');
+
+                expect(consoleLog).to.have.been.calledWithExactly(
+                    'INFO:', 'an info message'
+                );
+            });
+
+            it('"outputs" a warning log, prepending any arguments with a namespace', function() {
+                var warn = log('WARN:');
+
+                warn('this is a warning message', 'with more info');
+
+                expect(consoleLog).to.have.been.calledWithExactly(
+                    'WARN:', 'this is a warning message', 'with more info'
+                );
+            });
+        });
+
+        describe.skip('Partial application with Function::bind', function() {
+            var log = require('../src/functional/log_with_bind'),
+                consoleLog;
+
+            beforeEach(function() {
+                consoleLog = sinon.spy(console, 'log');
+            });
+
+            afterEach(function() {
+                console.log.restore();
+            });
+
+            it('Uses Function::bind', function() {
+                var bind = sinon.spy(console.log, 'bind'),
+
+                    info = log('INFO:');
+
+                info();
+
+                expect(bind).to.have.been.called;
+            });
+
+            it('"outputs" an info log, prepending any arguments with a namespace', function() {
+                var info = log('INFO:');
+
+                info('an info message');
+
+                expect(consoleLog).to.have.been.calledWithExactly('INFO:', 'an info message');
+            });
+
+            it('"outputs" a warning log, prepending any arguments with a namespace', function() {
+                var warn = log('WARN:');
+
+                warn('this is a warning message', 'with more info');
+
+                expect(consoleLog).to.have.been.calledWithExactly(
+                    'WARN:', 'this is a warning message', 'with more info'
+                );
             });
         });
     });

@@ -1,4 +1,53 @@
-# Test-Driven Friday TDD Katas
+# Test-Driven Tuesday
+This repository contains supporting materials for the Test-Driven Tuesday workshop I'm currenly running.
+
+The code katas and other exercises you'll find here should help you to understand the basics of JavaScript and Test-Driven Development (TDD) using node.js and popular automation tools.
+
+## Prerequisites
+You can use any IDE or text editor you like to play with the code here, but for the purpose of this workshop and its context I'll assume the following:
+* You have [IntelliJ](http://www.jetbrains.com/idea/) or [WebStorm](http://www.jetbrains.com/webstorm/) installed
+* You have a [GitHub account](https://github.com/join) (you'll need it to fork this repository)
+* You have [git](http://git-scm.com/) [installed](https://help.github.com/articles/set-up-git) on your machine
+* You have [node.js and npm set up](http://nodejs.org/)
+* You're using a *nix operating system
+* You've done some programming before and you're comfortable with using terminal
+
+## Workshop Workflow
+
+### One-time set up
+1. [Fork this project](https://github.com/jan-molak/test-driven-tuesday/fork) (you can learn more about forking from the [github manual](https://github.com/jan-molak/test-driven-tuesday))
+1. Clone your fork - `git clone https://github.com/<MyGitHubAccount>/test-driven-tuesday.git`
+1. Add my original repository so we can sync in the future - `git config remote.upstream.url https://github.com/jan-molak/test-driven-tuesday.git; git config remote.upstream.fetch '+refs/heads/*:refs/remotes/origin/*'`
+1. Install node modules by running `npm install` in the directory where you've cloned the project to
+1. Make sure you node_modules executables are on your `$PATH` by adding the following entry to your .bashrc or .zshrc
+`PATH=$PATH:./node_modules/.bin # Add node_modules binaries`
+1. Validate your clone by running: `grunt` in your project directory. You should get output similar to the following:
+```
+± % grunt                                                                                                               Running "jshint:src" (jshint) task
+>> 15 files lint free.
+
+Running "mochacov:watch" (mochacov) task
+
+# ... here goes the test output
+
+40 pending
+
+Done, without errors.
+```
+7. set up IntelliJ to run [mocha](http://visionmedia.github.io/mocha/) tests:
+  1. create a new run configuration called 'unit tests' for 'mocha' as per [the docs](https://www.jetbrains.com/idea/webhelp/creating-and-editing-run-debug-configurations.html)
+  2. set your 'mocha node package' to /path/to/your/project/**node_modules/grunt-mocha-cov/node_modules/mocha**
+
+
+### Do the exercise
+1. Sync your fork with my original repository - `git stash; git pull upstream master; git stash apply`
+1. Solve a problem of your choosing and make sure all the tests are passing :)
+
+### Submit your solution
+1. Whenever you get the tests to pass - commit and push the solution to your forked repository
+1. Raise a pull request so I can merge your solution
+
+# TDD Katas
 
 ## (British) Postcode
 
