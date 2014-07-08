@@ -43,5 +43,17 @@
 'use strict';
 
 module.exports = function duckCount() {
-    // return ...;
+    return Array.prototype.filter.apply(arguments, [function(item) {
+        return Object.prototype.hasOwnProperty.apply(item, ['quack']);
+    }]
+    ).length;
+//    var count = 0;
+//    for (var i = 0; i < arguments.length; i++) {
+//        var obj = arguments[i];
+//        if (Object.prototype.hasOwnProperty.apply(obj, ['quack'])) {
+//            count++;
+//        }
+//    }
+//
+//    return count;
 };

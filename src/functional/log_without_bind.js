@@ -54,5 +54,14 @@
 var slice = Array.prototype.slice;
 
 module.exports = function log(namespace) {
-    // return ...
+    var level = namespace;
+   // if (logMsg)
+    return function (){
+        var arr=[level];
+        for(var item in arguments){
+            arr.push(arguments[item]);
+        }
+
+        console.log.apply(undefined, arr);
+    }
 };

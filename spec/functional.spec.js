@@ -236,7 +236,7 @@ describe('Functional Programming', function() {
 
     describe('"Borrowing" functionality', function() {
 
-        describe.skip('call', function() {
+        describe('call', function() {
             function duck() {
                 return { quack: true };
             }
@@ -294,7 +294,7 @@ describe('Functional Programming', function() {
             });
         });
 
-        describe.skip('Partial application without Function::bind', function() {
+        describe('Partial application without Function::bind', function() {
             var log = require('../src/functional/log_without_bind'),
                 consoleLog;
 

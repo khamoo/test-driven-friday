@@ -15,68 +15,54 @@ You can use any IDE or text editor you like to play with the code here, but for 
 ## Workshop Workflow
 
 ### One-time set up
-1. [Fork this project](https://github.com/jan-molak/test-driven-tuesday/fork) (you can learn more about forking from the [github manual](https://github.com/jan-molak/test-driven-tuesday))
-1. Clone your fork - `git clone https://github.com/<MyGitHubAccount>/test-driven-tuesday.git`
-1. Add my original repository so we can sync in the future - `git config remote.upstream.url https://github.com/jan-molak/test-driven-tuesday.git; git config remote.upstream.fetch '+refs/heads/*:refs/remotes/origin/*'`
-1. Install node modules by running `npm install` in the directory where you've cloned the project to
-1. Make sure you node_modules executables are on your `$PATH` by adding the following entry to your .bashrc or .zshrc
-`PATH=$PATH:./node_modules/.bin # Add node_modules binaries`
-1. Validate your clone by running: `grunt` in your project directory. You should get output similar to the following:
+* [Fork this project](https://github.com/jan-molak/test-driven-tuesday/fork) (you can learn more about forking from the [github manual](https://github.com/jan-molak/test-driven-tuesday))
+* Clone your fork - `git clone https://github.com/<MyGitHubAccount>/test-driven-tuesday.git`
+* Add my original repository so we can [sync in the future](https://help.github.com/articles/syncing-a-fork):
 ```
-± % grunt                                                                                                               Running "jshint:src" (jshint) task
->> 15 files lint free.
+$> git config remote.upstream.url https://github.com/jan-molak/test-driven-tuesday.git
+$> git config remote.upstream.fetch '+refs/heads/*:refs/remotes/origin/*'
+```
+* Install node modules by running `npm install` in the directory where you've cloned the project to. **Remember to re-run npm install whenever the `package.json` file is changed**
+* Make sure you node_modules executables are on your `$PATH` by adding the following entry to your `.bashrc` or `.zshrc`
+```
+PATH=$PATH:./node_modules/.bin # Add node_modules binaries
+```
+* Validate your clone by running: `grunt` in your project directory. You should get output similar to the following:
+```
+$> grunt                                                                                                               Running "clean:0" (clean) task
 
 Running "mochacov:watch" (mochacov) task
 
 # ... here goes the test output
 
-40 pending
+  0 passing (7ms)
+  38 pending
 
 Done, without errors.
 ```
-7. set up IntelliJ to run [mocha](http://visionmedia.github.io/mocha/) tests:
+* set up IntelliJ to run [mocha](http://visionmedia.github.io/mocha/) tests:
   1. create a new run configuration called 'unit tests' for 'mocha' as per [the docs](https://www.jetbrains.com/idea/webhelp/creating-and-editing-run-debug-configurations.html)
   2. set your 'mocha node package' to /path/to/your/project/**node_modules/grunt-mocha-cov/node_modules/mocha**
 
 
 ### Do the exercise
-1. Sync your fork with my original repository - `git stash; git pull upstream master; git stash apply`
-1. Solve a problem of your choosing and make sure all the tests are passing :)
+* Sync your fork with my original repository - [full instructions on how to do this](https://help.github.com/articles/syncing-a-fork]
+```
+$> git stash
+$> git pull upstream master
+$> git stash apply
+```
+* Solve a problem of your choosing and make sure all the tests are passing :)
 
 ### Submit your solution
-1. Whenever you get the tests to pass - commit and push the solution to your forked repository
-1. Raise a pull request so I can merge your solution
+* Whenever you get the tests to pass - commit and push the solution to your forked repository
+* Raise a pull request so I can merge your solution
 
 # TDD Katas
 
 ## (British) Postcode
 
-The postcodes are **alphanumeric** and **between six and eight characters long**,
-including a **single space separating the outward and inward** parts of the code.
-Each postcode unit generally represents a street, part of a street, or a single address. *[...]*
-
-The **'outward'** part identifies first the **postcode area**, using **one or two letters** (for example L for Liverpool, RH Redhill and EH Edinburgh).
-These letter(s) are **followed by one or two digits** (and **sometimes a final letter**) to identify the appropriate postcode district (for example W1A, RH1, RH10 or SE1P). *[...]*
-
-The **'inward'** is used to assist with the delivery of post within a postal district.
-The **first character is a number** denoting a 'sector' and the **final two letters** identify the postcode unit,
-which may be a group of properties, a single property, a sub-section of the property,
-an individual organisation or a subsection of the organisation. The level of discrimination is often based on the amount of mail received by the premises or business. *[...]*
-
-### Validation
-
-The format is as follows, where **A signifies a letter and 9 a digit**:
-
-| Format   | Example  |
-|----------|----------|
-| AA9A 9AA | EC1A 1BB |
-| A9A 9AA  | W1A 1HQ  |
-| A9 9AA   | M1 1AA   |
-| A99 9AA  | B33 8TH  |
-| AA9 9AA  | CR2 6XH  |
-| AA99 9AA | DN55 1PT |
-
-source: [Wikipedia](http://en.wikipedia.org/wiki/Postcodes_in_the_United_Kingdom)
+You can find the details under [spec/exercises/objects_under_construction](https://github.com/jan-molak/test-driven-tuesday/tree/master/spec/exercises/objects_under_construction)
 
 _Postcode exercise has been originally designed by [Antony Marcano](http://antonymarcano.com/blog/)_
 
@@ -120,3 +106,8 @@ _FizzBuzz kata has been designed by [Imran Ghory](http://imranontech.com/2007/01
 
 Functional programming katas are inspired by exercises from http://nodeschool.io/#functionaljs
 Those exercises have been modified to make the automated verification of results more prominent and easier to understand.
+
+## Little Mocker
+
+The Little Mocker exercise is based on [The Little Mocker blog post](http://blog.8thlight.com/uncle-bob/2014/05/14/TheLittleMocker.html) by
+[Uncle Bob Martin](http://en.wikipedia.org/wiki/Robert_Cecil_Martin)
